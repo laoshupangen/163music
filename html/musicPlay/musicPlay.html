@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>播放</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../font/iconfont.css">
+    <style media="screen">
+        body {
+            /*background-color: rgba(0, 0, 0, 0.2);*/
+            background: url('../../image/bg1.jpg') no-repeat top;
+            background-size: cover;
+        }
+
+        .wrap {
+            height: 100%;
+            text-align: center;
+        }
+
+        header {
+            padding: 10px 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+        }
+
+        .onPlay1 {
+            height: 100%;
+            align-items: center;
+            -webkit-align-items: center;
+            justify-content: center;
+            -webkit-justify-content: center;
+        }
+
+        .cd {
+            border: 40px solid #333;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: url('../../image/adbg.jpg') no-repeat top;
+            background-size: cover;
+            box-shadow: 0 0 10px 10px #b78d8d;
+            -webkit-box-shadow: 0 0 10px 10px #b78d8d;
+        }
+
+        .playControl .iconfont {
+            padding: 30px 0;
+            color: #fff;
+            font-size: 30px;
+        }
+
+        .userControl .iconfont {
+            padding: 30px 0;
+            color: #eee;
+            font-size: 26px;
+        }
+
+        .userControl .active {
+            color: #d42323;
+        }
+
+        @keyframes rotatee {
+            0% {
+                transform: rotateZ(0deg);
+            }
+            50% {
+                transform: rotateZ(180deg);
+            }
+            100% {
+                transform: rotateZ(360deg);
+            }
+        }
+
+        @-webkit-keyframes rotatee {
+            0% {
+                -webkit-transform: rotateZ(0deg);
+            }
+            50% {
+                -webkit-transform: rotateZ(180deg);
+            }
+            100% {
+                -webkit-transform: rotateZ(360deg);
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="wrap flex-wrap flex-vertical">
+        <header>
+            <div class="flex-wrap">
+                <div class="" tapmode onclick="back()">
+                    <div class="iconfont icon-fanhui">
+                    </div>
+                </div>
+                <div class="flex-con">
+                    <div class="">
+                        <div class="">
+                            歌曲名称
+                        </div>
+                        <div class="">
+                            作者
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="iconfont icon-chakantiezifenxiang">
+                    </div>
+                </div>
+
+            </div>
+        </header>
+        <div class="onPlay flex-con">
+            <div class="flex-wrap onPlay1">
+
+                <div class="cd">
+
+
+                </div>
+
+
+
+
+
+            </div>
+
+
+        </div>
+
+        <div class="userControl">
+            <div class="flex-wrap flex-hor flex-space-around">
+                <div class="iconfont icon-xin active">
+
+                </div>
+                <div class="iconfont icon-xiazai">
+
+                </div>
+                <div class="iconfont icon-pinglun">
+
+                </div>
+                <div class="iconfont icon-diandiandianshu">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="playControl">
+            <div class="flex-wrap flex-hor flex-space-around">
+                <div class="iconfont icon-icon-1">
+
+                </div>
+                <div class="iconfont icon-047caozuo_shangyishou">
+
+                </div>
+                <div class="iconfont icon-icon-" tapmode>
+
+                </div>
+                <div class="iconfont icon-048caozuo_xiayishou">
+
+                </div>
+                <div class="iconfont icon-diandiandianshu">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        apiready = function() {
+            var header = $api.dom('header'),
+                deg = 0,
+                duration,
+                temduration = 0,
+                timer;
+            $api.fixStatusBar(header);
+            var oheight = $api.cssVal($api.dom('.onPlay'), 'height');
+            $api.css($api.dom('.onPlay1'), 'height:' + oheight + ';');
+            $api.addEvt($api.dom('.icon-icon-'), 'click', togglePlay, false);
+            // 声明模块
+            var uislider = api.require('UISlider');
+
+            // 加载音频
+            var audioStreamer = api.require('audioStreamer');
+            audioStreamer.openPlayer({
+                path: 'http://7xisq1.com1.z0.glb.clouddn.com/apicloud/0d0b81b8bd5ab81bda9ca54267eb9b98.mp3',
+            }, function(ret) {
+                if (ret.status) {
+                    // console.log(JSON.stringify(ret));
+                    duration = ret.duration;
+                    uislider.setValue({
+                        id: 1,
+                        value: {
+                            max: duration,
+                            step: duration / (api.frameWidth * 0.8)
+                        }
+                    });
+                    console.log(duration);
+                    audioStreamer.pause();
+
+                }
+            });
+
+            audioStreamer.addEventListener({}, function(ret) {
+                alert(ret.state);
+                if (ret.state == 'finished') {
+                    // clearInterval(timer);
+                    console.log(ret.state);
+                    stopAni();
+                    $api.rmEvt($api.dom('.icon-icon-'), 'click', togglePlay, false);
+
+                }
+            });
+
+            // 打开模块
+            uislider.open({
+                animation: true,
+                orientation: 'horizontal',
+                rect: {
+                    x: api.frameWidth * 0.1,
+                    y: api.frameHeight - parseInt($api.cssVal($api.dom('.playControl'), 'height')),
+                    size: api.frameWidth * 0.8
+
+                },
+                bubble: {
+                    direction: 'top',
+                    state: 'hide',
+                    w: 80,
+                    h: 30,
+                    size: 14,
+                    color: '#888',
+                    bg: 'widget://res/slider/bubble.png',
+                    prefix: '',
+                    suffix: ''
+                },
+                handler: {
+                    w: 16,
+                    h: 16,
+                    bg: 'widget://res/slider/button_1.png'
+                },
+                bar: {
+                    h: 2,
+                    bg: '#ccc',
+                    active: '#d42323'
+                },
+                value: {
+                    min: 0,
+
+                    init: 0
+                },
+                fixedOn: api.frameName,
+                fixed: false
+            }, function(ret, err) {
+                if (ret) {
+                  if (ret.eventType == 'sliding') {
+                    clearInterval(timer);
+                    audioStreamer.pause();
+                    console.log(ret.value + 'sliding');
+                  }
+                  if (ret.eventType == 'end') {
+                    console.log(ret.value + 'end');
+                    temduration = ret.value;
+                    audioStreamer.seekToTime({
+                      time: temduration
+                    });
+                    // audioStreamer.openPlayer();
+                    audioStreamer.resume();
+
+
+                  }
+
+                    // console.log(JSON.stringify(ret));
+                } else {
+                    // alert(JSON.stringify(err));
+                }
+            });
+
+
+
+            // console.log($api.cssVal($api.dom('.onPlay1'),'height'));
+            function togglePlay() {
+                if ($api.hasCls(this, 'icon-icon-')) {
+                    $api.removeCls(this, 'icon-icon-');
+                    $api.addCls(this, 'icon-zanting');
+                    // audioStreamer.openPlayer();
+                    audioStreamer.resume();
+
+                    rotatoAni();
+
+                } else {
+                    $api.removeCls(this, 'icon-zanting');
+                    $api.addCls(this, 'icon-icon-');
+                    stopAni();
+                    audioStreamer.pause();
+
+
+                }
+
+            }
+
+            function rotatoAni() {
+                timer = setInterval(function() {
+                    $api.css($api.dom('.onPlay .cd'), '-webkit-transform:rotateZ(' + deg + 'deg);');
+                    audioStreamer.getCurrentTime(function(ret) {
+
+                        temduration = ret.current;
+                    });
+                    uislider.setValue({
+                        id: 1,
+                        value: {
+                            value: temduration
+                        }
+                    });
+                    deg++;
+                }, 30);
+
+            }
+
+            function stopAni() {
+                clearInterval(timer);
+            }
+
+            //
+
+
+
+
+
+
+        }
+        function back() {
+          api.openWin({
+              name: 'musicList',
+              url: './f2part/defaultMusicList.html',
+              animation: {
+                  type: "movein", //动画类型（详见动画类型常量）
+                  subType: "from_left", //动画子类型（详见动画子类型常量）
+                  duration: 300 //动画过渡时间，默认300毫秒
+              }
+          });
+
+
+        }
+    </script>
+
+</body>
+
+</html>

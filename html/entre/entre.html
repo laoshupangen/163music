@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>app用户入口</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../font/iconfont.css">
+    <style media="screen">
+        .wrap {
+            height: 100%;
+            text-align: center;
+        }
+
+        .log {
+            padding: 80px 0;
+        }
+
+        .log img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: red;
+        }
+
+        .login {
+            padding: 10px 0;
+        }
+
+        .userLogin {
+            width: 14em;
+            color: red;
+            font-size: 20px;
+            padding: 5px;
+            border-radius: 15px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap flex-wrap flex-vertical">
+        <div class="">
+            <div class="">
+                <div class="log">
+                    <img src="" alt="log">
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="login flex-wrap flex-center">
+                <div class="userLogin" tapmode onclick="fnUserLogin()">
+                    手机号登录
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="login flex-wrap flex-center">
+                <div class="userLogin" tapmode onclick="fnUserRegister()">
+                    注册
+                </div>
+            </div>
+        </div>
+
+        <div class="others">
+
+        </div>
+    </div>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script charset="utf-8">
+        apiready = function() {
+
+        }
+
+        function fnUserLogin() {
+            api.openWin({
+                name: 'login',
+                url: './login.html',
+                animation: {
+                    type: "movein",
+                    subType: 'from_right',
+                    duration: '300'
+                }
+            });
+        }
+
+        function fnUserRegister() {
+            var user = api.require("user");
+            user.register({
+                username: '14578459658',
+                password: 'admin'                
+            }, function(ret, err) {
+                var model = api.require('model');
+                model.updateById({
+                    class: 'user',
+                    id: '5ae19557738e8dde119ffcdb',
+                    value: {
+                        nickname: 'JayFanner'
+                    }
+                }, function(ret, err) {
+                    if (ret) {
+                        alert(JSON.stringify(ret));
+                    } else {
+                        alert(JSON.stringify(err));
+                    }
+                });
+
+            });
+
+
+        }
+    </script>
+</body>
+
+</html>

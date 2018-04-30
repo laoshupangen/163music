@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>app用户入口</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../font/iconfont.css">
+    <link rel="stylesheet" href="../../css/aui.css">
+    <style media="screen">
+        .wrap {
+            height: 100%;
+            text-align: center;
+        }
+
+        header {
+            /*width: 100%;*/
+            padding-top: 24px;
+            padding-bottom: 4px;
+            background-color: #a22924;
+            line-height: 2em;
+            color: #fff;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        input {
+            width: 14em;
+            height: 2em;
+            line-height: 2em;
+            background-color: #fff;
+        }
+
+        input[type='button'] {
+            border-radius: 1em;
+            background-color: #a22924;
+        }
+
+        .fuserLogin {
+            padding-top: 20px;
+        }
+
+        .userLogin {
+            padding: 10px 0;
+            font-size: 20px;
+        }
+
+        .userbtn {
+            margin: auto;
+            width: 80vw;
+            height: 2rem;
+            line-height: 2rem;
+            background-color: red;
+            font-size: 18px;
+            border-radius: 1rem;
+        }
+
+        .user_btn {
+            padding: 10px 0;
+        }
+
+        .aui-list {
+            padding: 0 10%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex-wrap flex-vertical wrap">
+
+        <header>
+            <div class="flex-wrap flex-hor">
+                <div class="iconfont icon-fanhui" tapmode onclick="fnBack()">
+                </div>
+                <div class="inp">
+                    手机号登录
+                </div>
+                <div class="iconfont icon-fanhui" style="visibility:hidden;">
+                </div>
+            </div>
+        </header>
+        <div class="">
+            <div class="fuserLogin">
+
+                <div class="userLogin">
+                    <ul class="aui-list aui-form-list">
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label-icon">
+                                    <i class="aui-iconfont aui-icon-mobile"></i>
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="number" placeholder="手机号" id="number">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-label-icon">
+                                    <i class="aui-iconfont aui-icon-lock"></i>
+                                </div>
+                                <div class="aui-list-item-input">
+                                    <input type="password" placeholder="密码" id="password">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+
+
+                </div>
+
+                <div class="user_btn">
+                    <div class="userbtn" onclick="fnLogin()">
+                        登录
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <script src="../../script/api.js" charset="utf-8"></script>
+        <script type="text/javascript">
+            apiready = function() {
+
+
+            }
+
+            function fnBack() {
+                // api.closeWin({
+                //     name: 'login'
+                // });
+                api.openWin({
+                    name: 'entre',
+                    url: './entre.html',
+                    animation: {
+                        type: "movein", //动画类型（详见动画类型常量）
+                        subType: "from_left", //动画子类型（详见动画子类型常量）
+                        duration: 300 //动画过渡时间，默认300毫秒
+                    }
+                });
+
+            }
+
+            function fnLogin() {
+              var user = api.require('user');
+              user.login({
+                username:$api.byId('number').value,
+                password:$api.byId('password').value
+              }, function(ret, err) {
+                  if (ret) {
+                      console.log(JSON.stringify(ret));
+                      $api.setStorage('user', ret.id);
+                      api.openWin({
+                          name: 'root',
+                          url: '../../index.html',
+                          reload: true,
+                          pageParam: {
+                              name: 'test'
+                          }
+                      });
+
+                  } else {
+                      alert('密码或手机号输入错误');
+                  }
+              });
+
+
+
+            }
+
+            function findByNum() {
+                var user = api.require('user');
+                user.login({
+                  username:$api.byId('number').value,
+                  password:$api.byId('password').value
+                }, function(ret, err) {
+                    if (ret) {
+                        console.log(JSON.stringify(ret));
+
+                    } else {
+                        alert('密码或手机号输入错误');
+                    }
+                });
+            }
+        </script>
+</body>
+
+</html>

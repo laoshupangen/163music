@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../font/iconfont.css">
+    <style media="screen">
+        .wrap {
+            height: 100%;
+            text-align: center;
+        }
+
+        header {
+            padding: 10px 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+        }
+
+        .addToMusicList {
+            width: 60px;
+            height: 20px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <div class="flex-wrap">
+                <div class="" tapmode onclick="back()">
+                    <div class="iconfont icon-fanhui">
+                    </div>
+                </div>
+                <div class="flex-con">
+                    <div class="">
+                        <div class="">
+                            歌曲名称
+                        </div>
+                        <div class="">
+                            作者
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="iconfont icon-chakantiezifenxiang">
+                    </div>
+                </div>
+
+            </div>
+        </header>
+        <br><br>
+        <div class="addToMusicList" tapmode onclick="addToMusicList()">
+            添加歌曲
+        </div>
+        <br>
+        <div class="addToMusicList" tapmode onclick="playMusic()">
+            播放歌曲
+        </div>
+
+
+
+
+    </div>
+
+
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        apiready = function(){
+          $api.fixStatusBar($api.dom('header'));
+        }
+        function addToMusicList() {
+            var model = api.require("model");
+
+            model.insert({
+                class: 'songs',
+                value: {
+                    'name': 'songdhfa',
+                    'url': 'test2',
+                    'cover': 'pic1',
+                    'singer': 'singer',
+                    'pubTime': '2018-2-23',
+                    'lyricser': 'lyricser',
+                    'composer': 'composer',
+                    'ablum': 'ablumName'
+                }
+            }, function(ret, err) {
+                if (ret) {
+                    console.log(JSON.stringify(ret));
+                } else {
+                    console.log(JSON.stringify(err));
+                }
+            });
+
+
+        }
+
+        function playMusic() {
+            api.openWin({
+                name: 'musicPlay',
+                url: '../musicPlay/musicPlay.html',
+                scrollEnabled: false,
+                slidBackEnabled: false
+            })
+        }
+        function back() {
+          api.openWin({
+              name: 'root',
+              url: './../index.html',
+              pageParam: {
+                  index: 2
+              }
+          });
+
+
+        }
+    </script>
+
+
+</body>
+
+</html>

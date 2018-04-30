@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>发现音乐</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../font/iconfont.css">
+    <style media="screen">
+        .wrap {
+            text-align: center;
+            /*overflow: auto;*/
+        }
+
+        .unit2 {
+            background-color: #fff;
+            padding: 1em 0;
+        }
+
+        .circle {
+            display: inline-block;
+            width: 3em;
+            height: 3em;
+            line-height: 3em;
+            border-radius: 50%;
+            border: 1px solid #b53b3b;
+            color: #b53b3b;
+        }
+
+        .circle p {
+            font-size: 24px;
+        }
+
+        .unit3,
+        .unit4 {
+            font-size: 16px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .u3_title p,
+        .u4_title p {
+            padding: 1em 0;
+            text-align: left;
+        }
+
+        .u3_list {
+            color: #666;
+            text-align: center;
+        }
+
+        .u_img img {
+            width: 30vw;
+            height: 30vw;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex-wrap flex-vertical wrap">
+        <!-- 轮播区 -->
+        <div class="slider">
+
+        </div>
+
+        <div class="unit2 border-b">
+            <div class="flex-wrap">
+                <div class="flex-con">
+                    <div class="circle">
+                        <p class="iconfont icon-dadiantai"></p>
+                    </div>
+                    <p>私人FM</p>
+                </div>
+                <div class="flex-con">
+                    <div class="circle">
+                        <p class="iconfont icon-rili"></p>
+                    </div>
+                    <p>每日推荐</p>
+                </div>
+                <div class="flex-con">
+                    <div class="circle">
+                        <p class="iconfont icon-yinle101"></p>
+                    </div>
+                    <p>歌单</p>
+                </div>
+                <div class="flex-con">
+                    <div class="circle">
+                        <p class="iconfont icon-ranking"></p>
+                    </div>
+                    <p>排行榜</p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script id="evaluationTemp" type="text/x-dot-template">
+            <div class="u3_title">
+                <p><span></span><span class="iconfont icon-fanhui"></span>推荐歌单</p>
+            </div>
+            <div class="flex-wrap flex-hor u3_list">
+            {{ for(var x in it) { }}
+                <div class="">
+                    <div class="u_img">
+                        <img src="" alt="pic">
+                    </div>
+                    <p>{{= it[x].name }}</p>
+                </div>
+                {{ } }}
+            </div>
+        </script>
+        <div class="unit3">
+
+        </div>
+
+        <script id="vipTemp" type="text/x-dot-template">
+        <div class="u4_title">
+            <p><span></span><span class="iconfont icon-fanhui"></span>会员专属</p>
+        </div>
+            <div class="flex-wrap flex-hor u3_list">
+            {{ for(var x in it) { }}
+                <div class="">
+                    <div class="u_img">
+                        <img src="" alt="pic">
+                    </div>
+                    <p>{{= it[x].name }}</p>
+                </div>
+                {{ } }}
+            </div>
+        </script>
+
+        <div class="unit4">
+
+        </div>
+
+        <div class="footer">
+            加载完啦····
+        </div>
+    </div>
+
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/json.js"></script>
+<script type="text/javascript">
+
+    apiready = function() {
+      var evaluationTemp = doT.template($api.dom('#evaluationTemp').innerHTML),
+          vipTemp = doT.template($api.dom('#vipTemp').innerHTML);
+      var songlist1 = getSongList(songList,'1'),
+          songlist2 = getSongList(songList,'2');
+          $api.dom('.unit3').innerHTML = evaluationTemp(songlist1);
+          $api.dom('.unit4').innerHTML = vipTemp(songlist2);
+
+    }
+</script>
+
+</html>

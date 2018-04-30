@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>发现</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../font/iconfont.css">
+    <style>
+        .wrap {
+            height: 100%;
+            text-align: center;
+        }
+
+        header {
+            /*width: 100%;#a22924*/
+            padding-top: 24px;
+            padding-bottom: 4px;
+            background-color: #a22924;
+            line-height: 2em;
+            color: #fff;
+        }
+
+        .inp {
+            text-align: center;
+        }
+
+        input[type='text'] {
+            border: 1px solid #fff;
+            width: 16em;
+            text-align: center;
+            height: 2em;
+            line-height: 2em;
+            border-radius: 1em;
+            background-color: #fff;
+        }
+
+        .unit1 {
+            height: 3em;
+            line-height: 3em;
+            background-color: #f2f2f2;
+            color: #000;
+        }
+
+        .f0_u1_active {
+            position: relative;
+            color: #ad0c0c;
+        }
+
+        .f0_u1_active:after {
+            content: '';
+            position: absolute;
+            width: 4em;
+            height: 2px;
+            background-color: #bf2222;
+            top: 96%;
+            left: calc(50% - 2em);
+        }
+
+        .ani {
+            transition: width .2s linear;
+            -webkit-transition: width .2s linear;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex-wrap flex-vertical wrap">
+        <header>
+            <div class="flex-wrap flex-hor flex-space-around">
+                <div class="iconfont icon-maikefeng">
+                </div>
+                <div class="inp">
+                    <input type="text" placeholder="大家都在搜 XXX">
+                </div>
+                <div class="iconfont icon-shengyin">
+                </div>
+                <div class="cancleSearch" style="display:none;">
+                    取消
+                </div>
+            </div>
+        </header>
+        <!-- 选择 -->
+        <section class="unit1">
+            <div class="flex-wrap">
+                <div class="flex-con f0_u1_active" tapmode onclick="fnRandomSwitch(this)">
+                    <p>发现音乐</p>
+                </div>
+                <div class="flex-con" tapmode onclick="fnRandomSwitch(this)">
+                    <p>主播电台</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="part flex-con">
+
+        </div>
+
+    </div>
+
+
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        apiready = function() {
+
+            //  console.log(api.winName);
+            $api.addEvt($api.dom('.inp input'), 'click', function() {
+                $api.addCls(this, 'ani');
+                $api.css(this, 'width:20em;');
+                var siliblings = $api.domAll('header .iconfont');
+                $api.css(siliblings[0], 'display:none;');
+                $api.css(siliblings[1], 'display:none;');
+                $api.css($api.dom('header .cancleSearch'), 'display:block;');
+                $api.addEvt($api.dom('header .cancleSearch'), 'click', function() {
+                    $api.css($api.dom('.inp input'), 'width:16em;');
+                    $api.val($api.dom('.inp input'), '');
+                    var siliblings = $api.domAll('header .iconfont');
+                    $api.css(siliblings[0], 'display:block;');
+                    $api.css(siliblings[1], 'display:block;');
+                    $api.css(this, 'display:none;');
+                    $api.removeCls($api.dom('.inp input'), 'ani');
+                }, true);
+
+            }, true);
+            api.closeFrameGroup({
+                name: 'frame0'
+            });
+            initGroup();
+        }
+
+        function initGroup() {
+            var frameslist = [],
+                framemenu = $api.domAll('.unit1 .flex-con');
+            for (var i = 0; i < framemenu.length; i++) {
+                frameslist.push({
+                    name: 'frame0_part' + i,
+                    url: '../f0part/frame0_item' + i + '.html',
+                    bgColor: 'rgba(255,255,255,1)',
+                    bounces: true
+                })
+            }
+            api.openFrameGroup({
+                name: 'frame0',
+                background: '#fff',
+                scrollEnabled: true,
+                reload:true,
+                rect: {
+                    x: 0,
+                    y: $api.dom('header').offsetHeight + $api.dom('.unit1').offsetHeight,
+                    w: 'auto',
+                    h: $api.dom('.part').offsetHeight
+                },
+                index: 0,
+                frames: frameslist
+            }, function(ret, err) {
+                // alert(JSON.stringify(ret));
+                var framemenu = $api.domAll('.unit1 .flex-con')
+                switch (ret.index) {
+                    case 0:
+                        $api.addCls(framemenu[0], 'f0_u1_active');
+                        $api.removeCls(framemenu[1], 'f0_u1_active');
+                        break;
+                    case 1:
+                        $api.addCls(framemenu[1], 'f0_u1_active');
+                        $api.removeCls(framemenu[0], 'f0_u1_active');
+                        break;
+
+                    default:
+                        return
+
+                }
+            });
+            // api.setFrameGroupAttr({
+            //     name: 'frame0',
+            //     hidden: false
+            // });
+
+        }
+
+        function fnRandomSwitch(el) {
+            if (el == $api.dom('.flex-con .f0_u1_active')) return;
+            var framemenu = $api.domAll('.unit1 .flex-con'),
+                index = 0;
+            for (var i = 0, len = framemenu.length; i < len; i++) {
+                if (el == framemenu[i]) {
+                    index = i;
+                } else {
+                    $api.removeCls(framemenu[i], 'f0_u1_active');
+
+                }
+            }
+            $api.addCls(framemenu[index], 'f0_u1_active');
+            api.setFrameGroupIndex({
+                name: 'frame0',
+                index: index
+            });
+        }
+        // 云编译自定义loader中测试
+        function updateUser() {
+            var user = api.require('user');
+            user.register({
+                username: '金镶玉',
+                password: '22222',
+                email: 'sdsfxi@apicloud.com'
+
+            }, function(ret, err) {
+                if (ret) {
+                    console.log(JSON.stringify(ret));
+                    alert(JSON.stringify(ret));
+                } else {
+                   console.log(JSON.stringify(err));
+                    alert(JSON.stringify(err));
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
