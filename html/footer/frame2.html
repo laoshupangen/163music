@@ -171,6 +171,9 @@
 
    <script src="../../script/api.js" charset="utf-8"></script>
    <script type="text/javascript">
+    apiready = function(){
+      console.log(api.winName);
+    }
      function fnOpenMusicList() {
        api.openWin({
            name: 'musicList',

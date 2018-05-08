@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <style media="screen">
+        .wrap {
+            /*padding-top: 200px;*/
+            -webkit-transform-style: preserve-3d;
+            -webkit-backface-visibility: hidden;
+            -webkit-transform: translate3d(0, 0, 0);
+            /*-webkit-transform：rotate3d(0, 0, 0, 0);*/
+        }
+
+        .cd {
+            /*margin: auto;*/
+            position: absolute;
+            top: 200px;
+            left: 50px;
+            /*-webkit-transform: rotate(0deg);*/
+            -webkit-rotation:45deg;
+            border: 60px solid #333;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: url('../../image/adbg.jpg') no-repeat top;
+            background-size: cover;
+            -webkit-box-shadow: 0 0 10px 10px #b78d8d;
+            animation: rotatee 10s linear infinite;
+            -webkit-animation: rotatee 10s linear infinite;
+            -webkit-animation-play-state: paused;
+        }
+
+        .beginPlay {
+            padding: 5px 10px;
+            background-color: #9c9c64;
+        }
+
+        @keyframes rotatee {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes rotatee {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            50% {
+                -webkit-transform: rotate(180deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        .test {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            top: 0;
+            left: 0;
+            /*animation: mymove 5s;
+            animation-play-state: start;*/
+            /* Safari and Chrome */
+            -webkit-animation: mymove 5s linear infinite;
+            -webkit-animation-play-state: paused;
+        }
+        .willChange{
+        }
+
+        @-webkit-keyframes mymove
+        /* Safari and Chrome */
+
+        {
+            from {
+                left: 0px;
+            }
+            to {
+                left: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <!-- <div class="test">
+
+        </div> -->
+
+
+        <div class="cd">
+
+        </div><br>
+        <br>
+        <div class="beginPlay" onclick="playMusic()">
+            开始播放
+        </div><br>
+        <div class="beginPlay" onclick="stopPlay()">
+            暂停播放
+        </div><br>
+
+    </div>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        apiready = function() {
+
+        }
+
+        function playMusic() {
+            var cd = $api.dom('.cd');
+            console.log($api.cssVal(cd, '-webkit-transform'));
+
+            // $api.css($api.dom('.test'), '-webkit-animation-play-state:running;');
+            $api.css(cd, '-webkit-animation-play-state:running;');
+
+        }
+
+        function stopPlay() {
+            var cd = $api.dom('.cd');
+            $api.css(cd, '-webkit-animation-play-state:paused;');
+            // $api.css($api.dom('.test'), '-webkit-animation-play-state:paused;');
+
+
+
+        }
+    </script>
+</body>
+
+</html>

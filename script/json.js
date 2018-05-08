@@ -46,27 +46,27 @@ songList = [{
   'type':'1'
 },{
   'name':'新歌推荐',
-  'cover':'url',
+  'cover':'http://p1.music.126.net/zhWA4EYQAwxevrsPEiGqYQ==/19152393044246275.jpg?param=140y140',
   'type':'2'},{
     'name':'你打不过我吧',
-    'cover':'url',
+    'cover':'http://p1.music.126.net/zhWA4EYQAwxevrsPEiGqYQ==/19152393044246275.jpg?param=140y140',
     'type':'2'
   },{
     'name':'歌谣',
-    'cover':'url',
+    'cover':'http://p1.music.126.net/zhWA4EYQAwxevrsPEiGqYQ==/19152393044246275.jpg?param=140y140',
     'type':'2'
   },{
     'name':'第五人格',
-    'cover':'url',
+    'cover':'http://p1.music.126.net/zhWA4EYQAwxevrsPEiGqYQ==/19152393044246275.jpg?param=140y140',
     'type':'2'
   },{
     'name':'唐人街探案2插',
-    'cover':'url',
+    'cover':'http://p1.music.126.net/qNnaotqswSSIaxPHTpdmBA==/18770862511115632.jpg?param=140y140',
     'type':'2'
   }],
 songs = [{
   'name':'songName',
-  'url':'http://music.163.com/m/at/5ad5d956ce410f55efb0769f',
+  'url':'',
   'cover':'url',
   'singer':['singerName','singerSex','ablum','ages'],
   'pubTime':'2018-2-21',

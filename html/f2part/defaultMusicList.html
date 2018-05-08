@@ -22,9 +22,9 @@
         }
 
         .addToMusicList {
-            width: 60px;
+            padding: 8px 0;
             height: 20px;
-            background-color: red;
+            background-color: #9c9c64;
         }
     </style>
 </head>
@@ -61,7 +61,17 @@
         <br>
         <div class="addToMusicList" tapmode onclick="playMusic()">
             播放歌曲
-        </div>
+        </div><br>
+        <div class="addToMusicList" tapmode onclick="getCacheStorage()">
+            查看缓存占用空间
+        </div><br>
+        <div class="addToMusicList" tapmode onclick="clearCache()">
+            清除缓存
+        </div><br>
+        <div class="addToMusicList" tapmode onclick="Test()">
+            测试模块
+        </div><br>
+
 
 
 
@@ -71,9 +81,10 @@
 
     <script src="../../script/api.js" charset="utf-8"></script>
     <script type="text/javascript">
-        apiready = function(){
-          $api.fixStatusBar($api.dom('header'));
+        apiready = function() {
+            $api.fixStatusBar($api.dom('header'));
         }
+
         function addToMusicList() {
             var model = api.require("model");
 
@@ -108,15 +119,37 @@
                 slidBackEnabled: false
             })
         }
-        function back() {
-          api.openWin({
-              name: 'root',
-              url: './../index.html',
-              pageParam: {
-                  index: 2
-              }
-          });
 
+        function Test() {
+          api.openWin({
+              name: 'test',
+              url: '../musicPlay/test.html',
+              scrollEnabled: false,
+              slidBackEnabled: false
+          })
+
+        }
+
+        function back() {
+           api.closeWin({
+               name: 'musicList'
+           });
+        }
+
+        function clearCache() {
+            api.clearCache(function() {
+                api.toast({
+                    msg: '清除完成'
+                });
+            });
+
+        }
+
+        function getCacheStorage() {
+            var size = api.getCacheSize({
+                sync: true
+            });
+            console.log(size);
 
         }
     </script>

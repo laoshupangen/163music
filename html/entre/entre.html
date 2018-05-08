@@ -88,29 +88,15 @@
         }
 
         function fnUserRegister() {
-            var user = api.require("user");
-            user.register({
-                username: '14578459658',
-                password: 'admin'                
-            }, function(ret, err) {
-                var model = api.require('model');
-                model.updateById({
-                    class: 'user',
-                    id: '5ae19557738e8dde119ffcdb',
-                    value: {
-                        nickname: 'JayFanner'
-                    }
-                }, function(ret, err) {
-                    if (ret) {
-                        alert(JSON.stringify(ret));
-                    } else {
-                        alert(JSON.stringify(err));
-                    }
-                });
-
-            });
-
-
+          api.openWin({
+              name: 'register',
+              url: './register.html',
+              animation: {
+                  type: "movein",
+                  subType: 'from_right',
+                  duration: '300'
+              }
+          });
         }
     </script>
 </body>

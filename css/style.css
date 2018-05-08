@@ -8,8 +8,8 @@ html,body {  font-size:14px; height:100%; background-color: #fff}
   -webkit-box-orient:horizontal;
   -webkit-flex-flow:row wrap;
   flex-flow: row wrap;
-  justify-content: space-between;
-  -webkit-justify-content:space-between;
+  /*justify-content: space-between;
+  -webkit-justify-content:space-between;*/
 }
 .flex-space-around{
   justify-content: space-around;

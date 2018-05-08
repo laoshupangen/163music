@@ -74,7 +74,6 @@
         initFrame(frames[index].name);
       }else {
         initFrame('frame0');
-
       }
 
         // isLogin();
@@ -109,7 +108,7 @@
       }
       return frames;
     }
-
+//(api.frameHeight - $api.byId('footer').offsetHeight)
     function initFrame(frameName) {
         api.openFrame({
             name: frameName,
@@ -118,7 +117,7 @@
                 x: 0,
                 y: 0,
                 w: api.winWidth,
-                h: (api.frameHeight - $api.byId('footer').offsetHeight)
+                h: (api.frameHeight - $api.byId('footer').offsetHeight)               
             },
             reload: true,
             bounces: false,

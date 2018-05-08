@@ -46,6 +46,14 @@
             -webkit-box-shadow: 0 0 10px 10px #b78d8d;
         }
 
+        .showtime {
+            position: absolute;
+            right: 0;
+            padding: 5px 1em;
+            /*background-color: red;*/
+            color: #fff;
+        }
+
         .playControl .iconfont {
             padding: 30px 0;
             color: #fff;
@@ -149,6 +157,9 @@
             </div>
 
         </div>
+        <div class="showtime">
+
+        </div>
 
         <div class="playControl">
             <div class="flex-wrap flex-hor flex-space-around">
@@ -158,7 +169,7 @@
                 <div class="iconfont icon-047caozuo_shangyishou">
 
                 </div>
-                <div class="iconfont icon-icon-" tapmode>
+                <div class="play iconfont icon-icon-" tapmode>
 
                 </div>
                 <div class="iconfont icon-048caozuo_xiayishou">
@@ -179,52 +190,58 @@
     <script type="text/javascript">
         apiready = function() {
             var header = $api.dom('header'),
+                showtime = $api.dom('.showtime'),
+                playBtn = $api.dom('.playControl .play'),
                 deg = 0,
                 duration,
                 temduration = 0,
-                timer;
+                timer,
+                showtimer;
             $api.fixStatusBar(header);
+            $api.css(showtime, 'top:' + (api.frameHeight - parseInt($api.cssVal($api.dom('.playControl'), 'height'))) + 'px;');
+
             var oheight = $api.cssVal($api.dom('.onPlay'), 'height');
             $api.css($api.dom('.onPlay1'), 'height:' + oheight + ';');
-            $api.addEvt($api.dom('.icon-icon-'), 'click', togglePlay, false);
-            // 声明模块
+            // 声明slider模块
             var uislider = api.require('UISlider');
 
-            // 加载音频
+            // 声明音频模块
             var audioStreamer = api.require('audioStreamer');
+            // 加载音频
             audioStreamer.openPlayer({
                 path: 'http://7xisq1.com1.z0.glb.clouddn.com/apicloud/0d0b81b8bd5ab81bda9ca54267eb9b98.mp3',
             }, function(ret) {
-                if (ret.status) {
-                    // console.log(JSON.stringify(ret));
-                    duration = ret.duration;
-                    uislider.setValue({
-                        id: 1,
-                        value: {
-                            max: duration,
-                            step: duration / (api.frameWidth * 0.8)
-                        }
-                    });
-                    console.log(duration);
-                    audioStreamer.pause();
-
+              if (ret.status) {
+                $api.addEvt(playBtn, 'click', togglePlay, false);
+                console.log(JSON.stringify(ret));
+                  duration = ret.duration;
+                  uislider.setValue({
+                      id: 1,
+                      value: {
+                          max: duration,
+                          step: duration / (api.frameWidth * 0.8)
+                      }
+                  });
+                  console.log(duration);
+                  audioStreamer.pause();
                 }
             });
+
+
 
             audioStreamer.addEventListener({}, function(ret) {
                 alert(ret.state);
                 if (ret.state == 'finished') {
-                    // clearInterval(timer);
                     console.log(ret.state);
-                    stopAni();
-                    $api.rmEvt($api.dom('.icon-icon-'), 'click', togglePlay, false);
-
+                    stopCdAni();
+                    $api.rmEvt(playBtn, 'click', togglePlay, false);
+                    audioStreamer.stop();
                 }
             });
 
-            // 打开模块
+            // 加载模块
             uislider.open({
-                animation: true,
+                animation: false,
                 orientation: 'horizontal',
                 rect: {
                     x: api.frameWidth * 0.1,
@@ -262,22 +279,26 @@
                 fixed: false
             }, function(ret, err) {
                 if (ret) {
-                  if (ret.eventType == 'sliding') {
-                    clearInterval(timer);
-                    audioStreamer.pause();
-                    console.log(ret.value + 'sliding');
+                  // console.log(JSON.stringify(ret));
+                  if(ret.eventType == 'set'){
+                    showtime.innerHTML = getMinutes(ret.value);
+                    return null;
                   }
-                  if (ret.eventType == 'end') {
-                    console.log(ret.value + 'end');
-                    temduration = ret.value;
-                    audioStreamer.seekToTime({
-                      time: temduration
-                    });
-                    // audioStreamer.openPlayer();
-                    audioStreamer.resume();
-
-
+                  if(ret.eventType == 'end'){
+                    stopCdAni();
+                    // if($api.hasCls(playBtn,'icon-zanting')){
+                    //   $api.removeCls(playBtn, 'icon-zanting');
+                    // }
+                    // $api.addCls(playBtn, 'icon-icon-');
+                    return null;
                   }
+
+                  // 快进快退-图标变化
+
+                    //快进快退-音频文件重设播放位置
+
+                    // 显示播放时间
+
 
                     // console.log(JSON.stringify(ret));
                 } else {
@@ -287,20 +308,25 @@
 
 
 
-            // console.log($api.cssVal($api.dom('.onPlay1'),'height'));
+
             function togglePlay() {
                 if ($api.hasCls(this, 'icon-icon-')) {
                     $api.removeCls(this, 'icon-icon-');
                     $api.addCls(this, 'icon-zanting');
-                    // audioStreamer.openPlayer();
-                    audioStreamer.resume();
+                    if (api.systemType == 'ios') {
+                        audioStreamer.resume();
+                    } else {
+                        audioStreamer.openPlayer();
+                    }
 
-                    rotatoAni();
+                    StartcdAni();
+                    fnShowTime();
 
                 } else {
                     $api.removeCls(this, 'icon-zanting');
                     $api.addCls(this, 'icon-icon-');
-                    stopAni();
+                    clearShowTime();
+                    stopCdAni();
                     audioStreamer.pause();
 
 
@@ -308,48 +334,55 @@
 
             }
 
-            function rotatoAni() {
+            function StartcdAni() {
                 timer = setInterval(function() {
                     $api.css($api.dom('.onPlay .cd'), '-webkit-transform:rotateZ(' + deg + 'deg);');
-                    audioStreamer.getCurrentTime(function(ret) {
-
-                        temduration = ret.current;
-                    });
-                    uislider.setValue({
-                        id: 1,
-                        value: {
-                            value: temduration
-                        }
-                    });
                     deg++;
                 }, 30);
-
             }
 
-            function stopAni() {
+            function stopCdAni() {
                 clearInterval(timer);
             }
 
-            //
+            //时间显示
+            function fnShowTime() {
+              showtimer = setInterval(function () {
+                audioStreamer.getCurrentTime(function(ret) {
+                  temduration = ret.current;
+                });
+                uislider.setValue({
+                  id: 1,
+                  value: {
+                    value: temduration
+                  }
+                });
 
+              }, 1000);
+            }
 
+            function clearShowTime() {
+              // clearInterval(showtimer);
+            }
 
 
 
 
         }
+
         function back() {
-          api.openWin({
-              name: 'musicList',
-              url: './f2part/defaultMusicList.html',
-              animation: {
-                  type: "movein", //动画类型（详见动画类型常量）
-                  subType: "from_left", //动画子类型（详见动画子类型常量）
-                  duration: 300 //动画过渡时间，默认300毫秒
-              }
-          });
+            api.closeWin({
+                name: 'musicPlay'
+            });
 
 
+        }
+
+        function getMinutes(s) {
+            var m = Math.floor(s / 60);
+            var tems = s % 60;
+            tems = tems < 10 ? ('0' + tems) : tems;
+            return (m + ':' + tems);
         }
     </script>
 

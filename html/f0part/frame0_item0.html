@@ -50,11 +50,13 @@
         .u3_list {
             color: #666;
             text-align: center;
+            width: 33.3333vw;
+            /*height: 50vw;*/
         }
 
         .u_img img {
-            width: 30vw;
-            height: 30vw;
+          width: 30vw;
+          height: 30vw;
         }
     </style>
 </head>
@@ -101,11 +103,11 @@
             <div class="u3_title">
                 <p><span></span><span class="iconfont icon-fanhui"></span>推荐歌单</p>
             </div>
-            <div class="flex-wrap flex-hor u3_list">
+            <div class="flex-wrap flex-hor">
             {{ for(var x in it) { }}
-                <div class="">
+                <div class="u3_list">
                     <div class="u_img">
-                        <img src="" alt="pic">
+                        <img src="{{= it[x].cover}}" alt="pic">
                     </div>
                     <p>{{= it[x].name }}</p>
                 </div>
@@ -120,11 +122,11 @@
         <div class="u4_title">
             <p><span></span><span class="iconfont icon-fanhui"></span>会员专属</p>
         </div>
-            <div class="flex-wrap flex-hor u3_list">
+            <div class="flex-wrap flex-hor">
             {{ for(var x in it) { }}
-                <div class="">
+                <div class="u3_list">
                     <div class="u_img">
-                        <img src="" alt="pic">
+                        <img src="{{= it[x].cover}}" alt="pic">
                     </div>
                     <p>{{= it[x].name }}</p>
                 </div>
