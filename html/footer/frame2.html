@@ -7,7 +7,7 @@
     <title>我的</title>
     <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
-    <link rel="stylesheet" type="text/css" href="../../font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
     <style>
     .wrap {
         height: 100%;
@@ -175,24 +175,53 @@
       console.log(api.winName);
     }
      function fnOpenMusicList() {
-       api.openWin({
-           name: 'musicList',
-           url: '../f2part/defaultMusicList.html',
-           rect: {
-               x: 0,
-               y: 0,
-               w: api.frameWidth,
-               h: api.frameHeight
-           },
-           pageParam: {
-               name: 'test'
-           },
-           bounces: true,
-           bgColor: 'rgba(0,0,0,0)',
-           vScrollBarEnabled: true,
-           hScrollBarEnabled: true,
-           slidBackEnabled:false
-       });
+      //  api.openWin({
+      //      name: 'musicList',
+      //      url: '../f2part/defaultMusicList.html',
+      //      rect: {
+      //          x: 0,
+      //          y: 0,
+      //          w: api.frameWidth,
+      //          h: api.frameHeight
+      //      },
+      //      pageParam: {
+      //          name: 'test'
+      //      },
+      //      bounces: false,
+      //      bgColor: 'rgba(0,0,0,0)',
+      //      vScrollBarEnabled: true,
+      //      hScrollBarEnabled: true,
+      //      slidBackEnabled:false
+      //  });
+      var barH = $api.getStorage('barH');
+      console.log(barH+".."+api.winHeight);
+      api.openFrame({
+          name: 'musicList',
+          url: '../f2part/defaultMusicList.html',
+          rect: {
+              x: 0,
+              y: 0,
+              w: api.winWidth,
+              h: barH
+          },
+          pageParam: {
+              frameName: api.frameName,
+              frameUrl: '../f2part/defaultMusicList.html'
+          },
+          animation: {
+              type: "movein", //动画类型（详见动画类型常量）
+              subType: "from_right", //动画子类型（详见动画子类型常量）
+              duration: 300
+          },
+          bounces: true,
+          bgColor: 'rgba(0,0,0,0)',
+          vScrollBarEnabled: true,
+          hScrollBarEnabled: true
+      });
+      api.setFrameAttr({
+          name: 'frame2',
+          hidden: true
+      });
 
 
      }

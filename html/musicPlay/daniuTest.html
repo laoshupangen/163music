@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <style media="screen">
+        .wrap {
+            /*padding-top: 200px;*/
+            /*-webkit-transform-style: preserve-3d;
+            -webkit-backface-visibility: hidden;
+            -webkit-transform: translate3d(0, 0, 0);*/
+            /*-webkit-transform：rotate3d(0, 0, 0, 0);*/
+        }
+        /*paused-running模拟器上会有位置重置现象，真机无异常*/
+
+        .cd {
+            /*margin: auto;*/
+            position: absolute;
+            top: 200px;
+            left: 100px;
+            color: #fff;
+            border: 40px solid #333;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: url('../../image/adbg.jpg') no-repeat top;
+            background-size: cover;
+            /*-webkit-box-shadow: 0 0 10px 10px #b78d8d;*/
+            /*-webkit-animation-play-state: paused;*/
+        }
+
+        .active {
+            -webkit-animation: rotatee 10s linear infinite;
+            -webkit-animation-play-state: running;
+        }
+
+        .beginPlay {
+            padding: 5px 10px;
+            background-color: #9c9c64;
+        }
+
+        @keyframes rotatee {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes rotatee {
+            0% {
+                /*-webkit-transform: rotate(0deg);*/
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        .test {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            top: 0;
+            left: 0;
+            /*animation: mymove 5s;
+            animation-play-state: start;*/
+            /* Safari and Chrome */
+            -webkit-animation: mymove 5s linear infinite;
+            -webkit-animation-play-state: paused;
+        }
+
+        @-webkit-keyframes mymove
+        /* Safari and Chrome */
+
+        {
+            from {
+                left: 0px;
+            }
+            to {
+                left: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+
+
+
+        <br>
+        <div class="beginPlay">
+            开始播放
+        </div><br>
+        <div class="beginPlay">
+            暂停播放
+        </div><br>
+
+    </div>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        apiready = function() {
+            var demo = api.require('daniuPlayer');
+            demo.openPlayer({
+                rect: {
+                    x: 5,
+                    y: 0,
+                    w: api.frameWidth - 5,
+                    h: 200
+                },
+                playBuffer: 200, // 默认200ms
+                isLowLatency: false, //超低延时，默认fasle:不开启 true:开启
+                isFastStartup: true, // 是否秒开, 默认true:秒开 false:取消秒开
+                isMute: false, //是否静音 默认false:取消静音 true:静音
+                isHardwareDecoder: false, //是否硬解 默认false:软解 true:硬解
+                url: "rtsp://admin:admin@192.168.5.105:554/11",
+                fixedOn: api.winName,
+                fixed: true
+            }, function(ret, err) {
+                api.toast({
+                    msg: " openPlayer " + JSON.stringify(ret) + " " + JSON.stringify(err)
+                });
+            });
+
+        }
+    </script>
+</body>
+
+</html>

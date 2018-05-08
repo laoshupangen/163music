@@ -8,7 +8,7 @@
     <title>我的</title>
     <link rel="stylesheet" type="text/css" href="../../css/api.css" />
     <link rel="stylesheet" type="text/css" href="../../css/style.css" />
-    <link rel="stylesheet" type="text/css" href="../../font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
     <style media="screen">
         .wrap {
             height: 100%;
@@ -30,7 +30,7 @@
 </head>
 
 <body>
-    <div class="wrap">
+    <div class="wrap flex-wrap flex-vertical">
         <header>
             <div class="flex-wrap">
                 <div class="" tapmode onclick="back()">
@@ -54,23 +54,29 @@
 
             </div>
         </header>
-        <br><br>
-        <div class="addToMusicList" tapmode onclick="addToMusicList()">
+        <div class="flex-con">
+          <br><br>
+          <div class="addToMusicList" tapmode onclick="addToMusicList()">
             添加歌曲
-        </div>
-        <br>
-        <div class="addToMusicList" tapmode onclick="playMusic()">
+          </div>
+          <br>
+          <div class="addToMusicList" tapmode onclick="playMusic()">
             播放歌曲
-        </div><br>
-        <div class="addToMusicList" tapmode onclick="getCacheStorage()">
+          </div><br>
+          <div class="addToMusicList" tapmode onclick="getCacheStorage()">
             查看缓存占用空间
-        </div><br>
-        <div class="addToMusicList" tapmode onclick="clearCache()">
+          </div><br>
+          <div class="addToMusicList" tapmode onclick="clearCache()">
             清除缓存
-        </div><br>
-        <div class="addToMusicList" tapmode onclick="Test()">
+          </div><br>
+          <div class="addToMusicList" tapmode onclick="Test()">
             测试模块
-        </div><br>
+          </div><br>
+          <div class="addToMusicList" tapmode onclick="openTest()">
+            测试模块2
+          </div><br>
+
+        </div>
 
 
 
@@ -118,22 +124,63 @@
                 scrollEnabled: false,
                 slidBackEnabled: false
             })
+            // api.openFrame({
+            //     name: 'musicPlay',
+            //     url: '../musicPlay/musicPlay.html',
+            //     rect: {
+            //         x: 0,
+            //         y: 0,
+            //         w: api.winWidth,
+            //         h: api.winHeight
+            //     },
+            //     pageParam: {
+            //         name: 'test'
+            //     },
+            //     animation: {
+            //         type: "movein", //动画类型（详见动画类型常量）
+            //         subType: "from_right", //动画子类型（详见动画子类型常量）
+            //         duration: 300
+            //     },
+            //     bounces: false,
+            //     bgColor: 'rgba(0,0,0,0)',
+            //     vScrollBarEnabled: true,
+            //     hScrollBarEnabled: true
+            // });
+
         }
 
         function Test() {
-          api.openWin({
-              name: 'test',
-              url: '../musicPlay/test.html',
-              scrollEnabled: false,
-              slidBackEnabled: false
-          })
+            api.openWin({
+                name: 'test',
+                url: '../musicPlay/test.html',
+                scrollEnabled: false,
+                slidBackEnabled: false
+            })
+
+        }
+        function Test() {
+            api.openWin({
+                name: 'dntest',
+                url: '../musicPlay/daniutest.html',
+                scrollEnabled: false,
+                slidBackEnabled: false
+            })
 
         }
 
         function back() {
-           api.closeWin({
-               name: 'musicList'
-           });
+            // api.bringFrameToFront({
+            //     from: api.pageParam.frameName
+            // });
+            api.openFrame({
+                name: api.pageParam.frameName,
+                animation: {
+                    type: "movein", //动画类型（详见动画类型常量）
+                    subType: "from_left", //动画子类型（详见动画子类型常量）
+                    duration: 300
+                },
+            });
+
         }
 
         function clearCache() {

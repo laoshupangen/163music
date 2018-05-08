@@ -8,7 +8,7 @@
     <title>播放</title>
     <link rel="stylesheet" type="text/css" href="../../css/api.css" />
     <link rel="stylesheet" type="text/css" href="../../css/style.css" />
-    <link rel="stylesheet" type="text/css" href="../../font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
     <style media="screen">
         body {
             /*background-color: rgba(0, 0, 0, 0.2);*/
@@ -370,10 +370,31 @@
 
         }
 
-        function back() {
-            api.closeWin({
-                name: 'musicPlay'
+          function back() {
+            // api.closeWin({
+            //     name: 'musicPlay'
+            // });
+            // api.sendFrameToBack ({
+            //     from: 'musicPlay',
+            //     to:'frame3'
+            // });
+            api.setFrameAttr({
+                name: 'musicPlay',
+                hidden: true
             });
+
+
+            api.openFrame({
+                name: 'musicList',
+                animation: {
+                    type: "movein", //动画类型（详见动画类型常量）
+                    subType: "from_left", //动画子类型（详见动画子类型常量）
+                    duration: 300
+                },
+
+            });
+
+
 
 
         }

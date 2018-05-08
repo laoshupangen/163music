@@ -1,17 +1,77 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>文档</title>
-    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
     <style>
-        
+      .wrap{
+        height: 100%;
+        /*background-color: #fff;*/
+      }
+      header {
+          /*width: 100%;*/
+          padding-top: 24px;
+          padding-bottom: 4px;
+          background-color: #a22924;
+          line-height: 2em;
+          color: #fff;
+      }
+      .addToMusicList {
+          padding: 8px 0;
+          height: 20px;
+          background-color: #9c9c64;
+      }
+
+
     </style>
 </head>
-<body>
 
+<body>
+  <div class="wrap flex-wrap flex-vertical">
+    <header>
+      <div class="flex-wrap flex-hor flex-space-around">
+          <div class="iconfont icon-maikefeng">
+          </div>
+          <div class="inp">
+              动态
+          </div>
+          <div class="iconfont icon-shengyin">
+          </div>
+      </div>
+    </header>
+    <div class="">
+      <div class="addToMusicList" tapmode onclick="addToChat()">
+        开始聊天
+      </div>
+
+
+    </div>
+
+  </div>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script type="text/javascript">
+     apiready = function () {
+
+     }
+     function addToChat() {
+       api.openWin({
+           name: 'chat',
+           url: '../f3part/chat.html',
+           pageParam: {
+               name: 'test'
+           }
+       });
+
+
+
+     }
+    </script>
 </body>
+
 </html>
