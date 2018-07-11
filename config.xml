@@ -1,5 +1,5 @@
  <widget id="A6078471643009"  version="0.0.1">
-    <name>测试</name>
+    <name>仿网易云音乐</name>
     <description>
     </description>
     <author email="developer@apicloud.com" href="http://www.apicloud.com">
@@ -25,5 +25,5 @@
 	<permission name="fileSystem" />
 	<permission name="internet" />
 	<permission name="bootCompleted" />
-	<permission name="hardware" />  <preference name="backgroundMode" value="audio"/>  <preference name="softInputMode" value="pan"/>  <feature name="bMap">    <param name="android_api_key" value="YPD692F9SaHMl57riHEt1u6rTR38PAz8" />      </feature>
+	<permission name="hardware" />  <preference name="backgroundMode" value="audio"/>  <preference name="softInputMode" value="pan"/>  
 </widget>
