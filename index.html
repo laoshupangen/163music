@@ -69,7 +69,9 @@
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
-
+        if($api.getStorage('nightmodel') === null){
+          $api.setStorage('nightmodel','false');
+        }
         initFrame('frame0');
 
 

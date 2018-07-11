@@ -13,6 +13,9 @@
         height: 100%;
         text-align: center;
     }
+    .flex-aligns{
+      align-items: center;
+    }
 
     header {
         /*width: 100%;*/
@@ -21,6 +24,17 @@
         background-color: #a22924;
         line-height: 2em;
         color: #fff;
+    }
+    .note{
+      position: relative;
+      height: 16px;
+      width: 14px;
+    }
+    .note1{
+      position: absolute;
+      bottom: 0;
+      width: 2px;
+      background-color: #fff;
     }
     .content{
       position: relative;
@@ -69,13 +83,25 @@
 <body>
    <div class="flex-wrap flex-vertical wrap">
      <header>
-       <div class="flex-wrap flex-hor flex-space-around">
+       <div class="flex-wrap flex-hor flex-space-around flex-aligns">
            <div class="iconfont icon-maikefeng">
            </div>
            <div class="inp">
                我的音乐
            </div>
-           <div class="iconfont icon-shengyin">
+           <div class="note">
+             <div class="note1" style="height:8px;left:0;">
+
+             </div>
+             <div class="note1" style="height:12px;left:4px;">
+
+             </div>
+             <div class="note1" style="height:8px;left:8px;">
+
+             </div>
+             <div class="note1" style="height:16px;left:12px;">
+
+             </div>
            </div>
        </div>
      </header>
@@ -119,7 +145,7 @@
              <div class="upics">
                <img src="" alt="pic">
              </div>
-             <div class="item_inp flex-con border-b" onclick="fnOpenMusicList()">
+             <div class="item_inp flex-con border-b" onclick="fnOpenMusicList()" tapmode>
                <p>我喜欢的音乐</p>
                <p style="font-size:14px;color:#666;">201首</p>
              </div>
@@ -172,58 +198,47 @@
    <script src="../../script/api.js" charset="utf-8"></script>
    <script type="text/javascript">
     apiready = function(){
-      console.log(api.winName);
+      var nightmodel = $api.getStorage('nightmodel');
+      if(nightmodel === 'true'){
+        $api.dom('body').style.backgroundColor = '#6b1536';
+        $api.dom('header').style.backgroundColor = '#6b1536';
+      }else{
+        $api.dom('body').style.backgroundColor = '#fff';
+        $api.dom('header').style.backgroundColor = '#a22924';
+      }
+
+      setInterval(function () {
+        var note1 = document.getElementsByClassName('note1');
+        for(var i = 0; i < note1.length ; i++){
+          note1[i].style.height = getRandomNum() + 'px';
+        }
+      }, 100);
     }
+    function getRandomNum() {
+      var num = Math.random()*16;
+      num = Math.floor(num);
+      return num;
+    }
+
      function fnOpenMusicList() {
-      //  api.openWin({
-      //      name: 'musicList',
-      //      url: '../f2part/defaultMusicList.html',
-      //      rect: {
-      //          x: 0,
-      //          y: 0,
-      //          w: api.frameWidth,
-      //          h: api.frameHeight
-      //      },
-      //      pageParam: {
-      //          name: 'test'
-      //      },
-      //      bounces: false,
-      //      bgColor: 'rgba(0,0,0,0)',
-      //      vScrollBarEnabled: true,
-      //      hScrollBarEnabled: true,
-      //      slidBackEnabled:false
-      //  });
-      var barH = $api.getStorage('barH');
-      console.log(barH+".."+api.winHeight);
-      api.openFrame({
-          name: 'musicList',
-          url: '../f2part/defaultMusicList.html',
-          rect: {
-              x: 0,
-              y: 0,
-              w: api.winWidth,
-              h: barH
-          },
-          pageParam: {
-              frameName: api.frameName,
-              frameUrl: '../f2part/defaultMusicList.html'
-          },
-          animation: {
-              type: "movein", //动画类型（详见动画类型常量）
-              subType: "from_right", //动画子类型（详见动画子类型常量）
-              duration: 300
-          },
-          bounces: true,
-          bgColor: 'rgba(0,0,0,0)',
-          vScrollBarEnabled: true,
-          hScrollBarEnabled: true
-      });
-      api.setFrameAttr({
-          name: 'frame2',
-          hidden: true
-      });
-
-
+       api.openWin({
+           name: 'musicList',
+           url: '../f2part/defaultMusicList.html',
+           rect: {
+               x: 0,
+               y: 0,
+               w: api.frameWidth,
+               h: api.frameHeight
+           },
+           pageParam: {
+               name: 'test'
+           },
+           bounces: false,
+           bgColor: 'rgba(0,0,0,0)',
+           vScrollBarEnabled: true,
+           hScrollBarEnabled: true,
+           slidBackEnabled:false
+       });
      }
 
    </script>

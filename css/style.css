@@ -1,4 +1,4 @@
-html,body {  font-size:14px; height:100%; background-color: #fff}
+html,body {  font-size:14px; height: 100%;background-color: #fff}
 .hover{ opacity: .8; }
 
 .flex-wrap{ display: -webkit-box;	display: -webkit-flex;	display: flex; }

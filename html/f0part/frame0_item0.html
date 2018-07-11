@@ -39,6 +39,7 @@
             font-size: 16px;
             color: #000;
             font-weight: bold;
+            height: auto;
         }
 
         .u3_title p,
@@ -99,42 +100,42 @@
 
 
 
-        <script id="evaluationTemp" type="text/x-dot-template">
-            <div class="u3_title">
-                <p><span></span><span class="iconfont icon-fanhui"></span>推荐歌单</p>
-            </div>
-            <div class="flex-wrap flex-hor">
-            {{ for(var x in it) { }}
-                <div class="u3_list">
-                    <div class="u_img">
-                        <img src="{{= it[x].cover}}" alt="pic">
-                    </div>
-                    <p>{{= it[x].name }}</p>
-                </div>
-                {{ } }}
-            </div>
-        </script>
         <div class="unit3">
+          <script id="evaluationTemp" type="text/x-dot-template">
+          <div class="u3_title">
+          <p><span></span><span class="iconfont icon-fanhui"></span>推荐歌单</p>
+          </div>
+          <div class="flex-wrap flex-hor">
+          {{ for(var x in it) { }}
+          <div class="u3_list">
+          <div class="u_img">
+          <img src="{{= it[x].cover}}" alt="pic">
+          </div>
+          <p>{{= it[x].name }}</p>
+          </div>
+          {{ } }}
+          </div>
+          </script>
 
         </div>
 
-        <script id="vipTemp" type="text/x-dot-template">
-        <div class="u4_title">
-            <p><span></span><span class="iconfont icon-fanhui"></span>会员专属</p>
-        </div>
-            <div class="flex-wrap flex-hor">
-            {{ for(var x in it) { }}
-                <div class="u3_list">
-                    <div class="u_img">
-                        <img src="{{= it[x].cover}}" alt="pic">
-                    </div>
-                    <p>{{= it[x].name }}</p>
-                </div>
-                {{ } }}
-            </div>
-        </script>
 
         <div class="unit4">
+          <script id="vipTemp" type="text/x-dot-template">
+          <div class="u4_title">
+          <p><span></span><span class="iconfont icon-fanhui"></span>会员专属</p>
+          </div>
+          <div class="flex-wrap flex-hor">
+          {{ for(var x in it) { }}
+          <div class="u3_list">
+          <div class="u_img">
+          <img src="{{= it[x].cover}}" alt="pic">
+          </div>
+          <p>{{= it[x].name }}</p>
+          </div>
+          {{ } }}
+          </div>
+          </script>
 
         </div>
 
@@ -156,6 +157,17 @@
           songlist2 = getSongList(songList,'2');
           $api.dom('.unit3').innerHTML = evaluationTemp(songlist1);
           $api.dom('.unit4').innerHTML = vipTemp(songlist2);
+
+          var nightmodel = $api.getStorage('nightmodel');
+          if (nightmodel === 'true') {
+            $api.dom('.unit2').style.backgroundColor = '#6b1536';
+              $api.dom('.unit3').style.backgroundColor ='#6b1536';
+              $api.dom('.unit4').style.backgroundColor ='#6b1536';
+          } else {
+            $api.dom('.unit2').style.backgroundColor = '#fff';
+            $api.dom('.unit3').style.backgroundColor ='#fff';
+            $api.dom('.unit4').style.backgroundColor ='#fff';
+          }
 
     }
 </script>

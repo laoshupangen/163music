@@ -44,6 +44,10 @@
             background-size: cover;
             box-shadow: 0 0 10px 10px #b78d8d;
             -webkit-box-shadow: 0 0 10px 10px #b78d8d;
+            animation: rotatee 12s linear infinite;
+            animation-play-state: paused;
+            -webkit-animation: rotatee 12s linear infinite;
+            -webkit-animation-play-state: paused;
         }
 
         .showtime {
@@ -160,6 +164,9 @@
         <div class="showtime">
 
         </div>
+        <div class="playState">
+
+        </div>
 
         <div class="playControl">
             <div class="flex-wrap flex-hor flex-space-around">
@@ -195,7 +202,6 @@
                 deg = 0,
                 duration,
                 temduration = 0,
-                timer,
                 showtimer;
             $api.fixStatusBar(header);
             $api.css(showtime, 'top:' + (api.frameHeight - parseInt($api.cssVal($api.dom('.playControl'), 'height'))) + 'px;');
@@ -211,19 +217,19 @@
             audioStreamer.openPlayer({
                 path: 'http://7xisq1.com1.z0.glb.clouddn.com/apicloud/0d0b81b8bd5ab81bda9ca54267eb9b98.mp3',
             }, function(ret) {
-              if (ret.status) {
-                $api.addEvt(playBtn, 'click', togglePlay, false);
-                console.log(JSON.stringify(ret));
-                  duration = ret.duration;
-                  uislider.setValue({
-                      id: 1,
-                      value: {
-                          max: duration,
-                          step: duration / (api.frameWidth * 0.8)
-                      }
-                  });
-                  console.log(duration);
-                  audioStreamer.pause();
+                if (ret.status) {
+                    $api.addEvt(playBtn, 'click', togglePlay, false);
+                    console.log(JSON.stringify(ret));
+                    duration = ret.duration;
+                    uislider.setValue({
+                        id: 1,
+                        value: {
+                            max: duration,
+                            step: duration / (api.frameWidth * 0.8)
+                        }
+                    });
+                    console.log(duration);
+                    audioStreamer.pause();
                 }
             });
 
@@ -231,11 +237,18 @@
 
             audioStreamer.addEventListener({}, function(ret) {
                 alert(ret.state);
+                // if(ret.state == 'buffering') {
+                //   $api.dom('.playState').innerHTML = '正在缓冲中...';
+                // }
+                // if(ret.state =='prepare'){
+                //   $api.dom('.playState').innerHTML = '';
+                // }
                 if (ret.state == 'finished') {
                     console.log(ret.state);
-                    stopCdAni();
                     $api.rmEvt(playBtn, 'click', togglePlay, false);
                     audioStreamer.stop();
+                    $api.css(cd, '-webkit-animation-play-state:paused;');
+                    $api.dom('.playState').innerHTML = '播放结束...'
                 }
             });
 
@@ -279,21 +292,38 @@
                 fixed: false
             }, function(ret, err) {
                 if (ret) {
-                  // console.log(JSON.stringify(ret));
-                  if(ret.eventType == 'set'){
-                    showtime.innerHTML = getMinutes(ret.value);
-                    return null;
-                  }
-                  if(ret.eventType == 'end'){
-                    stopCdAni();
-                    // if($api.hasCls(playBtn,'icon-zanting')){
-                    //   $api.removeCls(playBtn, 'icon-zanting');
-                    // }
-                    // $api.addCls(playBtn, 'icon-icon-');
-                    return null;
-                  }
+                    // console.log(JSON.stringify(ret));
+                    if (ret.eventType == 'set') {
+                        showtime.innerHTML = getMinutes(ret.value);
 
-                  // 快进快退-图标变化
+                    }
+                    if (ret.eventType == 'end') {
+                        clearShowTime();
+                        uislider.setValue({
+                            id: 1,
+                            value: {
+                                value: ret.value
+                            }
+                        });
+                        showtime.innerHTML = getMinutes(ret.value);
+                        audioStreamer.seekToTime({
+                            time: ret.value
+                        });
+                        setInterval(function () {
+                          audioStreamer.getCurrentTime(function (ret) {
+                            uislider.setValue({
+                              id: 1,
+                              value: {
+                                  value: ret.current
+                              }
+                            });
+                          });
+
+                        }, 1000);
+                    }
+
+                    // 快进快退-图标变化
+
 
                     //快进快退-音频文件重设播放位置
 
@@ -310,6 +340,7 @@
 
 
             function togglePlay() {
+                var cd = $api.dom('.cd');
                 if ($api.hasCls(this, 'icon-icon-')) {
                     $api.removeCls(this, 'icon-icon-');
                     $api.addCls(this, 'icon-zanting');
@@ -318,51 +349,41 @@
                     } else {
                         audioStreamer.openPlayer();
                     }
-
-                    StartcdAni();
                     fnShowTime();
-
+                    $api.css(cd, '-webkit-animation-play-state:running;');
                 } else {
                     $api.removeCls(this, 'icon-zanting');
                     $api.addCls(this, 'icon-icon-');
-                    clearShowTime();
-                    stopCdAni();
                     audioStreamer.pause();
-
-
+                    $api.css(cd, '-webkit-animation-play-state:paused;');
                 }
 
             }
 
-            function StartcdAni() {
-                timer = setInterval(function() {
-                    $api.css($api.dom('.onPlay .cd'), '-webkit-transform:rotateZ(' + deg + 'deg);');
-                    deg++;
-                }, 30);
-            }
 
-            function stopCdAni() {
-                clearInterval(timer);
-            }
+
+
 
             //时间显示
             function fnShowTime() {
-              showtimer = setInterval(function () {
-                audioStreamer.getCurrentTime(function(ret) {
-                  temduration = ret.current;
-                });
-                uislider.setValue({
-                  id: 1,
-                  value: {
-                    value: temduration
-                  }
-                });
+                showtimer = setInterval(function() {
+                    audioStreamer.getCurrentTime(function(ret) {
+                        temduration = ret.current;
 
-              }, 1000);
+                    });
+
+                    uislider.setValue({
+                        id: 1,
+                        value: {
+                            value: temduration
+                        }
+                    });
+
+                }, 1000);
             }
 
             function clearShowTime() {
-              // clearInterval(showtimer);
+                clearInterval(showtimer);
             }
 
 
@@ -370,33 +391,8 @@
 
         }
 
-          function back() {
-            // api.closeWin({
-            //     name: 'musicPlay'
-            // });
-            // api.sendFrameToBack ({
-            //     from: 'musicPlay',
-            //     to:'frame3'
-            // });
-            api.setFrameAttr({
-                name: 'musicPlay',
-                hidden: true
-            });
-
-
-            api.openFrame({
-                name: 'musicList',
-                animation: {
-                    type: "movein", //动画类型（详见动画类型常量）
-                    subType: "from_left", //动画子类型（详见动画子类型常量）
-                    duration: 300
-                },
-
-            });
-
-
-
-
+        function back() {
+            api.closeWin();
         }
 
         function getMinutes(s) {

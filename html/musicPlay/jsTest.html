@@ -106,29 +106,13 @@
     <script src="../../script/api.js" charset="utf-8"></script>
     <script type="text/javascript">
         apiready = function() {
-            var demo = api.require('daniuPlayer');
-            demo.openPlayer({
-                rect: {
-                    x: 5,
-                    y: 0,
-                    w: api.frameWidth - 5,
-                    h: 200
-                },
-                playBuffer: 200, // 默认200ms
-                isLowLatency: false, //超低延时，默认fasle:不开启 true:开启
-                isFastStartup: true, // 是否秒开, 默认true:秒开 false:取消秒开
-                isMute: false, //是否静音 默认false:取消静音 true:静音
-                isHardwareDecoder: false, //是否硬解 默认false:软解 true:硬解
-                url: "rtsp://admin:admin@192.168.5.105:554/11",
-                fixedOn: api.winName,
-                fixed: true
-            }, function(ret, err) {
-                api.toast({
-                    msg: " openPlayer " + JSON.stringify(ret) + " " + JSON.stringify(err)
-                });
-            });
 
-        }
+            }
+            //script可以跨域
+            //需要跨域的时候可以创建一个script标签
+        
+
+
     </script>
 </body>
 

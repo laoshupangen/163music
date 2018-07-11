@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
@@ -9,184 +10,329 @@
     <link rel="stylesheet" type="text/css" href="../../css/style.css" />
     <link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
     <style media="screen">
+        .wrap {
+            height: 100%;
+            text-align: center;
+            background-color: #eee;
+        }
 
-    .wrap {
-        height: 100%;
-        text-align: center;
-        background-color: #eee;
-    }
+        header {
+            /*width: 100%;*/
+            padding-top: 24px;
+            padding-bottom: 4px;
+            background-color: #a22924;
+            line-height: 2em;
+            color: #fff;
+        }
 
-    header {
-        /*width: 100%;*/
-        padding-top: 24px;
-        padding-bottom: 4px;
-        background-color: #a22924;
-        line-height: 2em;
-        color: #fff;
-    }
-    .inp{
-      font-size: 1.5em;
-    }
-    .user_settings{
-      background-color: #fff;
-      padding: 10px 0;
-      font-size: 1.2em;
-      align-items: baseline;
-    }
-    .icon-padding{
-      padding: 0 10px;
-    }
-    .quit{
-      padding: 10px 0;
-    }
-    .quitLogin{
-      padding: 10px 0;
-      background-color:#fff;
-      font-size: 1.3em;
-      color: #a00f0f;
-    }
+        .inp {
+            font-size: 1.5em;
+        }
+
+        .user_settings {
+            background-color: #fff;
+            padding: 10px 0;
+            font-size: 1.2em;
+            align-items: stretch;
+        }
+
+        .icon-padding {
+            padding: 0 10px;
+        }
+
+        .quit {
+            padding: 10px 0;
+        }
+
+        .quitLogin {
+            padding: 10px 0;
+            background-color: #fff;
+            font-size: 1.3em;
+            color: #a00f0f;
+        }
+
+        .choose {
+            flex: 1;
+        }
+
+        .switcher {
+            width: 3rem;
+            height: 1.2rem;
+            border-radius: 0.6rem;
+            border: 1px solid #ccc;
+            float: right;
+            margin-right: 1rem;
+        }
+
+        .btn {
+            position: relative;
+            top: -1px;
+            bottom: -1px;
+            left: 0;
+            width: 1.8rem;
+            height: 1.26rem;
+            border-radius: 0.6rem;
+            background-color: #5ea2a2;
+        }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="flex-wrap flex-vertical wrap">
-      <header>
-        <div class="flex-wrap flex-hor flex-space-around">
-          <div class="iconfont">
-          </div>
-          <div class="inp">
-            账号
-          </div>
-          <div class="iconfont icon-shengyin">
-          </div>
-        </div>
-      </header>
-
-      <div class="user_info">
-        <div class="frame4_unit1">
-          <div class="user_photo">
-
-          </div>
-          <div class="">
-            <p>JayFaner</p>
-            <div class="user_level">
-              Lv.6
+        <header>
+            <div class="flex-wrap flex-hor flex-space-around">
+                <div class="iconfont">
+                </div>
+                <div class="inp">
+                    账号
+                </div>
+                <div class="iconfont icon-shengyin">
+                </div>
             </div>
-          </div>
+        </header>
 
-          <div class="user_reg">
-            已签到
-          </div>
-        </div>
-        <div class="frame4_unit1">
-          <div class="">
-            <div class="user_list1">
+        <div class="user_info">
+            <div class="frame4_unit1">
+                <div class="user_photo">
 
-            </div>
-            <div class="user_list1">
+                </div>
+                <div class="user_deinfo">
+                    <p></p>
+                    <div class="user_level">
+                        Lv.<span></span>
+                    </div>
+                </div>
 
+                <div class="user_reg">
+                    已签到
+                </div>
             </div>
-            <div class="user_list1">
+            <div class="frame4_unit1">
+                <div class="">
+                    <div class="user_list1">
 
-            </div>
-            <div class="user_list1">
+                    </div>
+                    <div class="user_list1">
 
-            </div>
-          </div>
-        </div>
+                    </div>
+                    <div class="user_list1">
 
-      </div>
+                    </div>
+                    <div class="user_list1">
 
-      <div class="user_items">
-        <div class="">
-          <div class="user_settings flex-wrap border-b">
-            <div class="iconfont icon-shezhi icon-padding">
+                    </div>
+                </div>
             </div>
-            <div class="icon-padding">
-              设置
-            </div>
-          </div>
-          <div class="user_settings flex-wrap border-b">
-            <div class="iconfont icon-saoyisao icon-padding">
-
-            </div>
-            <div class="icon-padding">
-              扫一扫
-            </div>
-          </div>
-
-          <div class="user_settings flex-wrap border-b">
-            <div class="iconfont icon-pifu icon-padding">
-
-            </div>
-            <div class="icon-padding">
-              个性换肤
-            </div>
-          </div>
-
-          <div class="user_settings flex-wrap border-b">
-            <div class="iconfont icon-dengpao icon-padding">
-
-            </div>
-            <div class="icon-padding">
-              夜间模式
-            </div>
-            <div class="choose">
-
-            </div>
-          </div>
-
-          <div class="user_settings flex-wrap border-b">
-            <div class="iconfont icon-naozhong icon-padding">
-
-            </div>
-            <div class="icon-padding">
-              定时关闭
-            </div>
-          </div>
-
-          <div class="user_settings flex-wrap border-b">
-            <div class="iconfont icon-chakantiezifenxiang icon-padding">
-
-            </div>
-            <div class="icon-padding">
-              分享app
-            </div>
-          </div>
-
-          <div class="user_settings flex-wrap border-b">
-            <div class="iconfont icon-iconset0103 icon-padding">
-
-            </div>
-            <div class="icon-padding">
-              关于
-            </div>
-          </div>
 
         </div>
-      </div>
 
-      <div class="quit">
-        <div class="quitLogin" onclick="quitLogin()">
-          退出登录
+        <div class="user_items">
+            <div class="">
+                <div class="user_settings flex-wrap border-b">
+                    <div class="iconfont icon-shezhi icon-padding">
+                    </div>
+                    <div class="icon-padding">
+                        设置
+                    </div>
+                </div>
+                <div class="user_settings flex-wrap border-b">
+                    <div class="iconfont icon-saoyisao icon-padding">
+
+                    </div>
+                    <div class="icon-padding">
+                        扫一扫
+                    </div>
+                </div>
+
+                <div class="user_settings flex-wrap border-b">
+                    <div class="iconfont icon-pifu icon-padding">
+
+                    </div>
+                    <div class="icon-padding">
+                        个性换肤
+                    </div>
+                </div>
+
+                <div class="user_settings flex-wrap border-b">
+                    <div class="iconfont icon-dengpao icon-padding">
+
+                    </div>
+                    <div class="icon-padding">
+                        夜间模式
+                    </div>
+                    <div class="choose">
+                        <div class="switcher" tapmode onclick="fnSwitchBg()">
+                            <div class="btn">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="user_settings flex-wrap border-b">
+                    <div class="iconfont icon-naozhong icon-padding">
+
+                    </div>
+                    <div class="icon-padding">
+                        定时关闭
+                    </div>
+                </div>
+
+                <div class="user_settings flex-wrap border-b">
+                    <div class="iconfont icon-chakantiezifenxiang icon-padding">
+
+                    </div>
+                    <div class="icon-padding">
+                        分享app
+                    </div>
+                </div>
+
+                <div class="user_settings flex-wrap border-b">
+                    <div class="iconfont icon-iconset0103 icon-padding">
+
+                    </div>
+                    <div class="icon-padding">
+                        关于
+                    </div>
+                </div>
+
+            </div>
         </div>
-      </div>
+
+        <div class="quit">
+            <div class="quitLogin" onclick="quitLogin()">
+                退出登录
+            </div>
+        </div>
     </div>
     <script src="../../script/api.js" charset="utf-8"></script>
     <script type="text/javascript">
-      function quitLogin() {
-        $api.rmStorage('user');
+        apiready = function() {
+          if(!$api.getStorage('user')){
+            $api.dom('.user_deinfo p').innerText = '点击登录';
+            $api.dom('.user_deinfo .user_level span').innerText = '未登录';
+            $api.addEvt($api.dom('.user_deinfo'), 'click', function(){
+              api.openWin({
+                  name: 'entre',
+                  url: '../entre/login.html',
+                  animation:{
+                    type: "movein",
+                    subType: 'from_right',
+                    duration: '300'
+                  }
+              });
+            }, false);
+            return;
+          }
+           var nightmodel = $api.getStorage('nightmodel');
+           var sbtn = $api.dom('.switcher .btn');
+           var user_settings = $api.domAll('.user_settings');
+           var quitLogin = $api.dom('.quitLogin');
+           if (nightmodel === 'true') {
+               $api.css(sbtn, 'left:1.5rem;');
+               $api.dom('header').style.backgroundColor = '#6b1536';
+               $api.dom('.wrap').style.backgroundColor = '#333';
+               quitLogin.style.backgroundColor = '#6b1536';
+               for (var i = 0; i < user_settings.length; i++) {
+                   user_settings[i].style.backgroundColor = '#6b1536';
+               }
+           } else {
+               $api.css(sbtn, 'left:0px;');
+               $api.dom('header').style.backgroundColor = '#a22924';
+               $api.dom('.wrap').style.backgroundColor = '#eee';
+               quitLogin.style.backgroundColor = '#fff';
+               for (var i = 0; i < user_settings.length; i++) {
+                   user_settings[i].style.backgroundColor = '#fff';
+               }
+           }
 
-        api.openWin({
-            name: 'entre',
-            url: '../entre/entre.html',
-            pageParam: {
-                name: 'test'
+            var id = $api.getStorage('user');
+            var model = api.require("model");
+            model.findById({
+                class: "user",
+                id: id
+            }, function(ret, err) {
+                // console.log("ret: " + JSON.stringify(ret) + "\nerr: " + JSON.stringify(err));
+                $api.dom('.user_deinfo p').innerText = ret.nickname;
+                $api.dom('.user_deinfo .user_level span').innerText = ret.level;
+
+            });
+
+        }
+
+        function fnSwitchBg() {
+            var sbtn = $api.dom('.switcher .btn');
+            var left = $api.cssVal(sbtn, 'left');
+            var user_settings = $api.domAll('.user_settings');
+            var quitLogin = $api.dom('.quitLogin');
+            var id = $api.getStorage('user');
+            if (left == '0px') {
+                var model = api.require("model");
+                model.updateById({
+                    class: "user",
+                    id: id,
+                    value: {
+                        nightmodel: 'true'
+                    }
+                }, function(ret, err) {
+                    // console.log("ret: " + JSON.stringify(ret) + "\nerr: " + JSON.stringify(err));
+                    $api.setStorage('nightmodel', ret.nightmodel);
+
+                });
+
+                $api.css(sbtn, 'left:1.5rem;');
+                $api.dom('header').style.backgroundColor = '#6b1536';
+                $api.dom('.wrap').style.backgroundColor = '#333';
+                quitLogin.style.backgroundColor = '#6b1536';
+                for (var i = 0; i < user_settings.length; i++) {
+                    user_settings[i].style.backgroundColor = '#6b1536';
+                }
+
+            } else {
+              var model = api.require("model");
+              model.updateById({
+                  class: "user",
+                  id: id,
+                  value: {
+                      nightmodel: 'false'
+                  }
+              }, function(ret, err) {
+                  // console.log("ret: " + JSON.stringify(ret) + "\nerr: " + JSON.stringify(err));
+                  $api.setStorage('nightmodel', ret.nightmodel);
+              });
+                $api.css(sbtn, 'left:0px;');
+                $api.dom('.wrap').style.backgroundColor = '#eee';
+                $api.dom('header').style.backgroundColor = '#a22924';
+                quitLogin.style.backgroundColor = '#fff';
+                for (var i = 0; i < user_settings.length; i++) {
+                    user_settings[i].style.backgroundColor = '#fff';
+                }
+
             }
-        });
 
 
-      }
 
+
+        }
+
+
+
+
+
+        function quitLogin() {
+            $api.rmStorage('user');
+
+            api.openWin({
+                name: 'entre',
+                url: '../entre/entre.html',
+                pageParam: {
+                    name: 'test'
+                }
+            });
+
+
+        }
     </script>
-  </body>
+</body>
+
 </html>

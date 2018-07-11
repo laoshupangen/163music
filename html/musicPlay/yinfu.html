@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>音符跳动</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <style>
+      .note{
+        margin: auto;
+        position: relative;
+        height: 10rem;
+        width: 14rem;
+      }
+      .note1{
+        position: absolute;
+        bottom: 0;
+        width: 2rem;
+        background-color: #bbdaaa;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="note">
+      <div class="note1" style="height:5rem;left:0;">
+
+      </div>
+      <div class="note1" style="height:8rem;left:4rem;">
+
+      </div>
+      <div class="note1" style="height:5rem;left:8rem;">
+
+      </div>
+      <div class="note1" style="height:10rem;left:12rem;">
+
+      </div>
+
+    </div>
+  </body>
+  <script src="../../script/api.js" charset="utf-8"></script>
+  <script type="text/javascript">
+
+    function getRandomNum() {
+      var num = Math.random()*10;
+      num = Math.floor(num);
+      return num;
+    }
+
+    setInterval(function () {
+      var note1 = document.getElementsByClassName('note1');
+      for(var i = 0; i < note1.length ; i++){
+        note1[i].style.height = getRandomNum() + 'rem';
+      }
+    }, 100);
+
+  </script>
+</html>

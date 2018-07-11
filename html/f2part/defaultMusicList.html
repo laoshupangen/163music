@@ -56,23 +56,23 @@
         </header>
         <div class="flex-con">
           <br><br>
-          <div class="addToMusicList" tapmode onclick="addToMusicList()">
+          <div class="addToMusicList" tapmode onclick="addToMusicList()" tapmode>
             添加歌曲
           </div>
           <br>
-          <div class="addToMusicList" tapmode onclick="playMusic()">
+          <div class="addToMusicList" tapmode onclick="playMusic()" tapmode>
             播放歌曲
           </div><br>
-          <div class="addToMusicList" tapmode onclick="getCacheStorage()">
+          <div class="addToMusicList" tapmode onclick="getCacheStorage()" tapmode>
             查看缓存占用空间
           </div><br>
-          <div class="addToMusicList" tapmode onclick="clearCache()">
+          <div class="addToMusicList" tapmode onclick="clearCache()" tapmode>
             清除缓存
           </div><br>
-          <div class="addToMusicList" tapmode onclick="Test()">
+          <div class="addToMusicList" tapmode onclick="Test()" tapmode>
             测试模块
           </div><br>
-          <div class="addToMusicList" tapmode onclick="openTest()">
+          <div class="addToMusicList" tapmode onclick="openTest()" tapmode>
             测试模块2
           </div><br>
 
@@ -124,28 +124,6 @@
                 scrollEnabled: false,
                 slidBackEnabled: false
             })
-            // api.openFrame({
-            //     name: 'musicPlay',
-            //     url: '../musicPlay/musicPlay.html',
-            //     rect: {
-            //         x: 0,
-            //         y: 0,
-            //         w: api.winWidth,
-            //         h: api.winHeight
-            //     },
-            //     pageParam: {
-            //         name: 'test'
-            //     },
-            //     animation: {
-            //         type: "movein", //动画类型（详见动画类型常量）
-            //         subType: "from_right", //动画子类型（详见动画子类型常量）
-            //         duration: 300
-            //     },
-            //     bounces: false,
-            //     bgColor: 'rgba(0,0,0,0)',
-            //     vScrollBarEnabled: true,
-            //     hScrollBarEnabled: true
-            // });
 
         }
 
@@ -169,18 +147,7 @@
         }
 
         function back() {
-            // api.bringFrameToFront({
-            //     from: api.pageParam.frameName
-            // });
-            api.openFrame({
-                name: api.pageParam.frameName,
-                animation: {
-                    type: "movein", //动画类型（详见动画类型常量）
-                    subType: "from_left", //动画子类型（详见动画子类型常量）
-                    duration: 300
-                },
-            });
-
+          api.closeWin();
         }
 
         function clearCache() {

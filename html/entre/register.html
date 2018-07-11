@@ -115,7 +115,7 @@
                 </div>
 
                 <div class="user_btn">
-                    <div class="userbtn" onclick="fnRegister()">
+                    <div class="userbtn" onclick="findByUsername()">
                         注册
                     </div>
                 </div>
@@ -129,7 +129,7 @@
             apiready = function() {
 
 
-            }
+            };
 
             function fnBack() {
                 // api.closeWin({
@@ -145,60 +145,96 @@
                     }
                 });
 
-            }
+            };
 
             function fnRegister() {
-              var user = api.require("user");
-              user.register({
-                  username: $api.byId('number').value,
-                  password: $api.byId('password').value
-              }, function(ret, err) {
-                 console.log(JSON.stringify(ret));
-                 if(ret){
-                   var model = api.require('model');
-                   model.updateById({
-                     class: 'user',
-                     id: ret.id,
-                     value: {
-                       level: '0'
-                     }
-                   }, function(ret, err) {
-                     if (ret) {
-                       alert('注册成功');
-                     } else {
-                       alert(JSON.stringify(err));
-                     }
-                   });
-                   api.openWin({
-                       name: 'login',
-                       url: './login.html',
-                       animation: {
-                           type: "movein",
-                           subType: 'from_right',
-                           duration: '300'
-                       }
-                   });
+                var user = api.require("user");
+                user.register({
+                    username: $api.byId('number').value,
+                    password: $api.byId('password').value
+                }, function(ret, err) {
+                    console.log(JSON.stringify(ret));
+                    if (ret) {
+                        var model = api.require('model');
+                        model.updateById({
+                            class: 'user',
+                            id: ret.id,
+                            value: {
+                                level: '0'
+                            }
+                        }, function(ret, err) {
+                            if (ret) {
+                                alert('注册成功');
+                            } else {
+                                alert(JSON.stringify(err));
+                            }
+                        });
+                        api.openWin({
+                            name: 'login',
+                            url: './login.html',
+                            animation: {
+                                type: "movein",
+                                subType: 'from_right',
+                                duration: '300'
+                            }
+                        });
 
-                 }
+                    }
 
-              });
+                });
 
 
             }
 
-            function findByNum() {
-                var user = api.require('user');
-                user.login({
-                  username:$api.byId('number').value,
-                  password:$api.byId('password').value
-                }, function(ret, err) {
+            function findByUsername() {
+                var query = api.require('query');
+
+                query.createQuery(function(ret, err) {
                     if (ret) {
-                        console.log(JSON.stringify(ret));
+                        query.whereEqual({
+                            qid: ret.qid,
+                            value: $api.byId('number').value,
+                            column: 'username'
+                        });
+
+                        var model = api.require('model');
+                        model.count({
+                            class: "user",
+                            qid: ret.qid
+                        }, function(ret, err) {
+                            if (ret) {
+                                if(ret.count==0){
+                                  fnRegister();
+                                }else{
+                                  $api.byId('number').type = "text";
+                                  $api.byId('number').style.color = "#666";
+                                  $api.byId('number').value = "该手机号已被注册";
+                                  $api.addEvt($api.byId('number'), 'click', function(){
+                                    $api.byId('number').type = "number";
+                                    $api.byId('number').style.color = "#000";
+                                    // $api.rmEvt($api.byId('number'), 'click', this, false);
+                                  }, false);
+
+
+                                }
+                            } else {
+                                alert(JSON.stringify(err));
+                            }
+                        });
+
+
 
                     } else {
-                        alert('密码或手机号输入错误');
+                        alert(JSON.stringify(err));
                     }
+
                 });
+
+            }
+
+            function ChangeType() {
+
+
             }
         </script>
 </body>

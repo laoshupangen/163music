@@ -25,5 +25,5 @@
 	<permission name="fileSystem" />
 	<permission name="internet" />
 	<permission name="bootCompleted" />
-	<permission name="hardware" />  <preference name="backgroundMode" value="audio"/>  <preference name="softInputMode" value="pan"/>
+	<permission name="hardware" />  <preference name="backgroundMode" value="audio"/>  <preference name="softInputMode" value="pan"/>  <feature name="bMap">    <param name="android_api_key" value="YPD692F9SaHMl57riHEt1u6rTR38PAz8" />      </feature>
 </widget>

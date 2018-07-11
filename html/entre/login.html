@@ -154,8 +154,8 @@
                 password:$api.byId('password').value
               }, function(ret, err) {
                   if (ret) {
-                      console.log(JSON.stringify(ret));
-                      $api.setStorage('user', ret.id);
+                      // console.log(JSON.stringify(ret));
+                      $api.setStorage('user', ret.userId);
                       api.openWin({
                           name: 'root',
                           url: '../../index.html',
